@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="uts-8">
+    <title>Hello_World</title>
+    </meta>
+</head>
+
+<body>
+    <style>
+        body {
+            margin: 10;
+        }
+
+        img {
+            margin-top: 40px;
+            margin-left: 15px;
+        }
+
+        .black {
+            background: #222;
+            margin: 10;
+            color: whitesmoke;
+        }
+
+        .red {
+            background: red;
+            margin: 10;
+            color: whitesmoke;
+        }
+    </style>
+
+
+    <label for="pet-select">Choose a pet:</label>
+    <select id="pet-select">
+        <option selected disabled value="">---Please choose your pet---</option>
+        <option value="dog">Dog</option>
+        <option value="cat">Cat</option>
+    </select>
+    <button class='submit'>Submit</button>
+    <br>    
+    <label for="color-select">Choose Backgroud Color:</label>
+    <select id="color-select">
+        <option selected disabled value="">---Please choose color---</option>
+        <option value="red">Red</option>
+        <option value="black">Black</option>
+    </select>
+    <button class='submit'>Submit</button>
+    <div>
+        <!-- <button id='btn2'>Click Here 2</button> -->
+        <button id='btn1'>Black Cat</button>
+        <button id='btn2'>Red Dog</button>
+    </div>
+    <span>
+        <!-- image from my pc -->
+        <img id="imgCat" style="display: none" src="pics/cat.jpg" alt="" width="150" hight="150" />
+        <!-- image from a site -->
+        <img id="imgDog" style="display: none"
+            src="https://www.petmd.com/sites/default/files/Acute-Dog-Diarrhea-47066074.jpg" alt="" width="150"
+            hight="150" />
+    </span>
+    <!-- using jquery in this script -->
+    <script src="lib/jquery-3.4.1.min.js"></script>
+    <script>
+        $('#btn1').click(
+            function () {
+                toggleCat(true);
+                $('body').removeClass('red');
+                $('body').toggleClass('black');
+            }
+        );
+        $('#btn2').click(
+            function () {
+                toggleDog(true);
+                $('body').removeClass('black');
+                $('body').toggleClass('red');
+            }
+        );
+        $('.submit').click(
+            function () {
+                $("select[$color-select]").change(function () {
+                    var color1 = $("option:selected",this).css('background-color');
+                    $(this).css('background-color',color1);
+                }).change();
+            }
+        );
+        function toggleCat(flag) {
+            if (flag) {
+                $('#imgDog').hide();
+                $('#imgCat').toggle('fast');
+            }
+        }
+        function toggleDog(flag) {
+            if (flag) {
+                $('#imgCat').hide();
+                $('#imgDog').toggle('fast');
+            }
+        }
+
+    </script>
+</body>
+
+</html>
+
+
+
+
+<!-- 
+<body>                                                         <body>
+    <button id='btn1'>Click Here 1</button>                       
+    <button id='btn2'>Click Here 2</button>                      <script>
+   <script src="lib/jquery-3.4.1.min.js"></script>     ---:>       $(document).ready(function() {
+    <script>                                                        $('#btn1').click(
+        $('#btn1').click(                                               function() {
+            function() {                                                    alert('clicked 1')
+                alert('clicked 1')                                      }
+            }                                                       ); })
+          );                                                     </script>
+    </script>                                          ---:>     <button id='btn1'>Click Here 1</button>
+</body>                                                ---:>     <button id='btn2'>Click Here 2</button>
+                                                                 <script src="lib/jquery-3.4.1.min.js"></script>
+ -->

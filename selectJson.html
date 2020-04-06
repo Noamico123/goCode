@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bind SELECT Element with JSON using JavaScript</title>
+  </head>
+  <body style="font:14px Calibri;">
+    <p>
+      This SELECT Dropdown list is filed using JSON data from an external file!
+    </p>
+
+    <select id="sel" onchange="show(this)">
+      <option value="">-- Select --</option>
+    </select>
+
+    <p id="msg"></p>
+  </body>
+
+  <script>
+    window.onload = populateSelect();
+
+    function populateSelect() {
+      // CREATE AN XMLHttpRequest OBJECT, WITH GET METHOD.
+      var xhr = new XMLHttpRequest(),
+        method = "GET",
+        overrideMimeType = "application/json",
+        url = "https://api.exchangeratesapi.io/latest";
+
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+          // PARSE JSON DATA.
+          var json = JSON.parse(xhr.responseText);
+          var ele = document.getElementById("sel");
+          for (var key in json.rates) {
+            ele.innerHTML =
+              ele.innerHTML +
+              '<option value="' +
+              key +
+              '">' +
+              key +
+              "</option>";
+            console.log("key " + key + " has value " + json.rates[key]);
+          }
+        }
+      };
+      xhr.open(method, url, true);
+      xhr.send();
+    }
+
+    function show(ele) {
+      // GET THE SELECTED VALUE FROM <select> ELEMENT AND SHOW IT.
+      var msg = document.getElementById("msg");
+
+      msg.innerHTML =
+        "Selected Bird: <b>" +
+        ele.options[ele.selectedIndex].text +
+        "</b> </br>" +
+        "ID: <b>" +
+        ele.target +
+        "</b>";
+    }
+  </script>
+</html>

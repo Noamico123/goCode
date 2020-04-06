@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style>
+      body {
+        background: #222;
+        margin: 0;
+        color: whitesmoke;
+      }
+
+      button {
+        margin-left: 30px;
+      }
+
+      input {
+        margin-left: 30px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>
+      <h3 id="check1">
+        Amount:
+        <input id="amount" type="text" placeholder="How much you have?" />
+      </h3>
+      <h3 id="check1">
+        From:
+        <input id="from" type="text" placeholder="From -- ILS,USD,NZL..." />
+      </h3>
+      <h3 id="check1">
+        To:
+        <input id="to" type="text" placeholder="To -- ILS,USD,NZL..." />
+      </h3>
+    </div>
+    <button onclick="makeRequest()">Get Gate</button>
+    <span style="color: red; margin: 10px" class="from"></span>
+    <span style="color: blue; margin: 10px" class="to"></span>
+    <span style="color: black; margin: 10px" class="result"></span>
+
+    <script>
+      function makeRequest() {
+        // JSON is the file that we GET from the server with the values
+        var httpRequest = new XMLHttpRequest();
+        //value from user:
+        var tempFrom = document.querySelector("#from");
+        var tempTo = document.querySelector("#to");
+        var amount = document.querySelector("#amount");
+        //using api - AJAX request
+        httpRequest.open("GET", "https://api.exchangeratesapi.io/latest");
+        httpRequest.send();
+        httpRequest.onreadystatechange = function() {
+          if (httpRequest.readyState === XMLHttpRequest.DONE) {
+            if (httpRequest.status === 200) {
+              var json = JSON.parse(httpRequest.responseText);
+              to = json.rates[tempTo.value.toUpperCase()];
+              from = json.rates[tempFrom.value.toUpperCase()];
+              var gate = to / from;
+              document.querySelector(".from").innerHTML = "from: " + from;
+              document.querySelector(".to").innerHTML = "to: " + to;
+              document.querySelector(".result").innerHTML =
+                "result: " + gate * amount.value;
+            } else {
+              alert("Problem");
+            }
+          }
+        };
+      }
+    </script>
+  </body>
+</html>
+
+<!-- 1USD equals to ILSrate (div) USDrate  -->
+<!-- 1ILS equals to USDrate (div) ILSrate -->

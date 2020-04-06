@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta aria-checked="utf-8" />
+    <title>Page Title</title>
+    <link rel="in" type="text/css" media="screen" herf="index.css" />
+    <style>
+      .foo {
+        color: red;
+      }
+
+      .foo1 {
+        color: deepskyblue;
+      }
+      #check {
+        background-color: green;
+        color: white;
+      }
+
+      #check1 {
+        background-color: lightblue;
+        color: darkred;
+      }
+      #check::first-letter {
+        font-size: 20px;
+      }
+
+      span {
+        padding: 50px;
+      }
+
+      div span {
+        color: blue;
+      }
+
+      .foo span {
+        color: yellowgreen;
+      }
+    </style>
+  </head>
+
+  <body>
+    <p id="check">P for Paragraph</p>
+    <div><span>Hello World!</span></div>
+    <br />
+    <div class="foo">how r u today?<span>Hello World!</span></div>
+    <h2 id="check1">
+      First Name: <input type="text" placeholder="Type Here" />
+    </h2>
+    <h2 class="foo1">
+      Last Name: <input type="text" placeholder="Type Here" />
+    </h2>
+  </body>
+</html>

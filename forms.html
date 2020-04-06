@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style>
+    /* shows red bordered box till fill it with text -> till its valid */
+        input:invalid{
+                border: 2px solid red;
+                background: gray;
+            }
+    </style>
+  </head>
+
+  <body>
+    <form action="http://httpbin.org/get" ethod="get">
+      <div>
+        <label for="pet-select">Choose a pet:</label>
+        <select id="pet-select">
+          <option selected disabled value=""
+            >---Please choose your pet---</option>
+          <option value="dog">Dog</option>
+          <option value="cat">Cat</option>
+          <option value="fish">Fish</option>
+        </select>
+        <button>Submit</button>
+        <button type="reset">Reset</button>
+      </div>
+    </br>
+      <div>
+          <label for="choose">Banan or Apple?</label>
+          <input id="choose" name="i_like" minlength="3" required/>
+          <button>Submit</button>
+      </div>
+    </form>
+  </body>
+</html>

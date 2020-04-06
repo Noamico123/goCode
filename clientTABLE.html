@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Document</title>
+  <style>
+    body {
+      background: #222;
+      margin: 0;
+      color: whitesmoke;
+    }
+
+    button {
+      margin-left: 30px;
+    }
+
+    input {
+      margin-left: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <table cellpadding="20" cellspacing="0" align="center">
+    <tr>
+      <td colspan="2" rowspan="1" align="left">
+        <h3>
+          Amount:
+        </h3>
+      </td>
+      <td colspan="3" rowspan="1" align="center">
+        <input id="amount" type="text" placeholder="How much you have?" />
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" rowspan="1" align="left">
+        <h3>
+          From:
+        </h3>
+      </td>
+      <td colspan="3" rowspan="1" align="center">
+        <input id="from" type="text" placeholder="From -- ILS,USD,NZL..." />
+      </td>
+      <td colspan="2" rowspan="1" align="center"><span style="color: red; margin: 10px" class="from"></span></td>
+    </tr>
+    <tr>
+      <td colspan="2" rowspan="1" align="left">
+        <h3>
+          To:
+        </h3>
+      </td>
+      <td colspan="3" rowspan="1" align="left">
+        <input id="to" type="text" placeholder="To -- ILS,USD,NZL..." />
+      <td colspan="2" rowspan="1" align="center"><span style="color: red; margin: 10px" class="to"></span></td>
+      </td>
+    </tr>
+    <td colspan="2" align="center">
+      <button onclick="switch1()">Switch</button>
+    </td>
+    <td colspan="2" align="center">
+      <button id='gatBTN'>Get Gate</button>
+    </td>
+    <td colspan="2">
+      <span style="color: white; margin: 10px" class="result"></span></td>
+  </table>
+  <!-- JS -->
+  <script>
+    //value from user:
+    var tempFrom = document.querySelector("#from");
+    var tempTo = document.querySelector("#to");
+    var amount = document.querySelector("#amount");
+    var btn1 = document.querySelector('#getBTN');
+    // function makeRequest() {
+    // JSON is the file that we GET from the server with the values
+    var httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = function () {
+      if (httpRequest.readyState === XMLHttpRequest.DONE && httpRequest.status === 200) {
+        var json = JSON.parse(httpRequest.responseText);
+        btn1.addEventListener("click", function () {
+          from = json.rates[tempFrom.value.toUpperCase()];
+          to = json.rates[tempTo.value.toUpperCase()];
+          var gate = to / from;
+          document.querySelector(".from").innerHTML = "From: " + Number(from).toFixed(2);
+          document.querySelector(".to").innerHTML = "To: " + Number(to).toFixed(2);
+          document.querySelector(".result").innerHTML =
+            "Result: " + Number(gate * amount.value).toFixed(2);
+        });
+      }
+      //using api - AJAX request
+      httpRequest.open("GET", "https://api.exchangeratesapi.io/latest");
+      httpRequest.send();
+    };
+    // }
+    function switch1() {
+      // from = XMLHttpRequest.response.rates[tempFrom.value.toUpperCase()];
+      // to = XMLHttpRequest.response.rates[tempTo.value.toUpperCase()];
+      console.log();
+
+      var a = from;
+      to = from;
+      from = a;
+    }
+  </script>
+</body>
+
+</html>
+
+<!-- 1USD equals to ILSrate (div) USDrate  -->
+<!-- 1ILS equals to USDrate (div) ILSrate -->
